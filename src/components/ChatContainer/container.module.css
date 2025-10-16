@@ -1,0 +1,13 @@
+.container {
+    margin-top: 1rem;
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+    height: calc(100vh - 140px);
+}
+
+.chat {
+    flex-grow: 1;
+    overflow-y: scroll;
+    width: 100%;
+}

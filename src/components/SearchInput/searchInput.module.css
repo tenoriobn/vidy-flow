@@ -1,0 +1,38 @@
+.inputGroup {
+    display: flex;
+    align-items: stretch;
+    width: 100%;
+}
+
+.formControl {
+    flex: 1;
+    padding: 10px;
+    font-size: 14px;
+    border: 1px solid #C5C5C5;
+    border-right: none;
+    border-radius: 25px 0 0 25px;
+    outline: none;
+    background-color: transparent;
+    width: 100%;
+}
+
+.inputGroupAppend {
+    display: flex;
+    align-items: center;
+    background-color: #C5C5C5;
+    border: 1px solid #C5C5C5;
+    border-left: none;
+    padding: 5px 15px;
+    border-radius: 0 25px 25px 0;
+}
+
+.inputGroupText {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.inputGroupText img {
+    width: 20px;
+    height: 20px;
+}
