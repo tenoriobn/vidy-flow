@@ -35,14 +35,17 @@ export const ChatContainer = () => {
                         onRemove={() => console.log('remove message', msg.id)}
                     />
                 ))}
-
             </div>
-            {isLoading && <div>
-                <Loader />
-                <Button variant='danger' onClick={stop} >
-                    <IconStop /> parar
-                </Button>
-            </div>}
+
+            {isLoading && 
+                <div>
+                    <Loader />
+                    <Button variant='danger' onClick={stop} >
+                        <IconStop /> parar
+                    </Button>
+                </div>
+            }
+
             <ChatForm 
                 input={input}
                 handleInputChange={handleInputChange}
