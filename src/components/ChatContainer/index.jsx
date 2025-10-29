@@ -15,12 +15,18 @@ export const ChatContainer = () => {
 
     const { 
         messages, 
+        setMessages,
         input, 
         handleInputChange, 
         handleSubmit,
         isLoading,
+        reload,
         stop
     } = useChat()
+
+    function removeMessage(msgId) {
+        setMessages(messages.filter(m => m.id != msgId));
+    }
 
     return (
         <section className={styles.container}>
@@ -32,7 +38,7 @@ export const ChatContainer = () => {
                         key={msg.id}
                         message={msg.content}
                         isUser={msg.role == 'user'} 
-                        onRemove={() => console.log('remove message', msg.id)}
+                        onRemove={() => removeMessage(msg.id)}
                     />
                 ))}
             </div>
@@ -43,6 +49,12 @@ export const ChatContainer = () => {
                     <Button variant='danger' onClick={stop} >
                         <IconStop /> parar
                     </Button>
+                </div>
+            }
+
+            {(!isLoading && messages.length > 0) && 
+                <div>
+                    <RetryButton onClick={reload} />
                 </div>
             }
 
