@@ -21,5 +21,23 @@ export async function POST(request) {
     `
   })
 
-  return result.toDataStreamResponse()
+  return result.toDataStreamResponse({
+    getErrorMessage: (error) => {
+      if (error == null) {
+        console.error('[POST] :: toDataStreamResponse - erro chegou nulo e não sabemos o que houve.')
+        return 'Algum erro inesperado aconteceu!'
+      }
+
+      if (typeof error == 'string') {
+        console.error('[POST] :: toDataStreamResponse - erro chegou nulo e não sabemos o que houve.', error)
+        return error;
+      }
+
+      if (typeof error == Error) {
+        return error.message;
+      }
+
+      return JSON.stringify(error);
+    }
+  })
 }

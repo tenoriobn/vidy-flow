@@ -21,7 +21,8 @@ export const ChatContainer = () => {
         handleSubmit,
         isLoading,
         reload,
-        stop
+        stop,
+        error
     } = useChat()
 
     function removeMessage(msgId) {
@@ -52,11 +53,9 @@ export const ChatContainer = () => {
                 </div>
             }
 
-            {(!isLoading && messages.length > 0) && 
-                <div>
-                    <RetryButton onClick={reload} />
-                </div>
-            }
+            {error && <p>Ops! Alguma coisa deu errado!</p>}
+
+            {(!isLoading && messages.length > 0) && <RetryButton onClick={reload} />}
 
             <ChatForm 
                 input={input}
