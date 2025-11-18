@@ -1,4 +1,6 @@
 import { createOpenAI } from '@ai-sdk/openai'
+import { Ratelimit } from '@upstash/ratelimit';
+import kv from '@vercel/kv';
 import { convertToCoreMessages, streamText } from 'ai'
 
 const openrouter = createOpenAI({
@@ -6,7 +8,21 @@ const openrouter = createOpenAI({
   baseUrl: process.env.OPENAI_BASE_URL,
 })
 
+const ratelimit = new Ratelimit({
+  redis: kv,
+  limiter: Ratelimit.fixedWindow(2, '60s'),
+});
+
 export async function POST(request) {
+  const ip = request.ip ?? 'ip';
+  const { success, remaining } = await ratelimit.limit(ip);
+  console.log('success: ', success)
+  console.log('remaining: ', remaining)
+
+  if (!success) {
+    return new Response('Limite de mensagens atingido!', { status: 429 });
+  }
+
   const { messages } = await request.json()
 
   const result = await streamText({
